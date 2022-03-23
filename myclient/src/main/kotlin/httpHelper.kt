@@ -44,7 +44,7 @@ fun httpPost(
     reqUrl: String,
     parameter: List<Pair<String, Any>>? = null,
     header: Map<String, Any>? = null,
-    body: Any?,
+    body: Any? = null,
     timeout: Long = 3000
 ): String?{
     var result: String? = null
