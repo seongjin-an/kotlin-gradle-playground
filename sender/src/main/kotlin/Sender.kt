@@ -12,7 +12,7 @@ class Sender {
 
             try{
                 val message = StringBuilder();
-                message.append(String.format("%-8s", msg.length))
+//                message.append(String.format("%-8s", msg.length))
                 message.append(msg)
 
                 client = Socket(host, port)
@@ -45,5 +45,5 @@ class Sender {
     }
 }
 fun main(args: Array<String>){
-    Sender.send("localhost", 8080, "hello world")
+    Sender.send("localhost", 8080, "hello world11")
 }
