@@ -5,21 +5,17 @@ import io.netty.channel.EventLoopGroup
 import io.netty.channel.nio.NioEventLoopGroup
 import io.netty.channel.socket.SocketChannel
 import io.netty.channel.socket.nio.NioServerSocketChannel
-import io.netty.handler.codec.string.StringDecoder
-import io.netty.handler.codec.string.StringEncoder
-import io.netty.handler.logging.LogLevel
-import io.netty.handler.logging.LoggingHandler
 import kotlin.system.exitProcess
 
-class NettyServer {
+class NettyServerConfig {
     companion object {
         @Volatile
-        private var instance: NettyServer? = null
+        private var instance: NettyServerConfig? = null
 
         @JvmStatic
-        fun getInstance(port: Int): NettyServer {
+        fun getInstance(port: Int): NettyServerConfig {
             return instance ?: synchronized(this){
-                instance ?: NettyServer(port).also{ server -> instance = server}
+                instance ?: NettyServerConfig(port).also{ server -> instance = server}
             }
         }
     }
@@ -45,9 +41,9 @@ class NettyServer {
                     override fun initChannel(ch: SocketChannel) {
                         println("=======================INITIALIZE CHANNEL")
                         val channelPipeline = ch.pipeline()
-                            .addLast("decoder", NettyDecoder())
-                            .addLast("encoder", NettyEncoder())
-                            .addLast("handler", NettyHandler())
+                            .addLast("decoder", NettyServerDecoder())
+                            .addLast("encoder", NettyServerEncoder())
+                            .addLast("handler", NettyServerHandler())
 
 //                        channelPipeline.addLast("logging", LoggingHandler(LogLevel.INFO))
 //                        channelPipeline.addLast("handler", NettyHandler())

@@ -1,13 +1,10 @@
-import io.netty.buffer.ByteBuf
 import io.netty.channel.Channel
 import io.netty.channel.ChannelHandlerContext
 import io.netty.channel.ChannelInboundHandlerAdapter
 import io.netty.channel.group.DefaultChannelGroup
 import io.netty.util.concurrent.GlobalEventExecutor
-import java.nio.charset.Charset
-import java.nio.charset.StandardCharsets
 
-class NettyHandler: ChannelInboundHandlerAdapter() {
+class NettyServerHandler: ChannelInboundHandlerAdapter() {
     companion object{
         val channelGroup = DefaultChannelGroup(GlobalEventExecutor.INSTANCE)
         val rooms = HashMap<String, MutableList<Channel>>()
@@ -17,6 +14,7 @@ class NettyHandler: ChannelInboundHandlerAdapter() {
     private val ROOM_EVEN = "even"
 
     override fun channelRegistered(ctx: ChannelHandlerContext?) {
+        TEST_ROOM++
         val channel = ctx?.channel()
         channelGroup.add(channel)
         val roomType = if(TEST_ROOM % 2 == 0) ROOM_EVEN else ROOM_ODD
@@ -25,12 +23,13 @@ class NettyHandler: ChannelInboundHandlerAdapter() {
             val channels = mutableListOf(channel!!)
             rooms[roomType] = channels
         }else{
-            println("$roomType EXISTS ALREAD")
+            println("$roomType EXISTS ALREADY")
             rooms[roomType]!!.add(channel!!)
         }
-        rooms[roomType]?.forEach { room ->  println(room) }
+//        rooms[roomType]?.forEach { room ->  println(room) }
         println("[channelRegistered]: ${channel.remoteAddress()}")
-        channelGroup.forEach { group -> group.writeAndFlush("[SERVER]: ${channel.remoteAddress()} LOGIN\n") }
+//        channelGroup.forEach { group -> group.writeAndFlush("[SERVER]: ${channel.remoteAddress()} LOGIN\n") }
+        rooms[roomType]?.forEach { chn ->  chn.writeAndFlush("[SERVER]: ${channel.remoteAddress()} LOGIN\\n")}
     }
 
     override fun channelUnregistered(ctx: ChannelHandlerContext?) {
@@ -40,8 +39,9 @@ class NettyHandler: ChannelInboundHandlerAdapter() {
         if(rooms[roomType] != null){
             rooms[roomType]!!.remove(oldChannel)
         }
-        println("[channelUnregistered]: ${oldChannel!!.remoteAddress()}")
-        channelGroup.forEach { group -> group.writeAndFlush("[SERVER]: ${oldChannel.remoteAddress()} LOGOUT\n") }
+//        println("[channelUnregistered]: ${oldChannel!!.remoteAddress()}")
+//        channelGroup.forEach { group -> group.writeAndFlush("[SERVER]: ${oldChannel.remoteAddress()} LOGOUT\n") }
+        rooms[roomType]?.forEach { chn -> chn.writeAndFlush("[SERVER]: ${oldChannel?.remoteAddress()} LOGOUT\\n") }
     }
     override fun handlerAdded(ctx: ChannelHandlerContext?) {
         val incoming: Channel = ctx!!.channel()
