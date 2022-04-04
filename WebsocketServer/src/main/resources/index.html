@@ -1,0 +1,46 @@
+<html lang="en">
+<body>
+<div>
+    <label for="input"></label><input type="text" id="input"/>
+</div>
+<script>
+    let ws;
+    const input = document.getElementById("input")
+    input.addEventListener("keydown", (event) => {
+        if(event.key === 'Enter'){
+            console.log('enter key down event')
+            ws.send('hihihi')
+        }
+    })
+
+    function createWs() {
+        ws = new WebSocket('ws://192.168.229.128:8080/websocket?id=1')
+
+        ws.onopen = () => {
+            console.log('websocket connected...')
+        }
+
+        ws.onerror = error => {
+            console.log('ERROR:', error)
+        }
+
+        ws.onmessage = e => {
+            console.log('websocket receive message:', e.data)
+        }
+
+        ws.onclose = e => {
+            if (e.code === 1005) {
+                console.log('websocket closed')
+            } else {
+                console.log('websocket\'s closed unexpectedly reconnect will be attempted in a second', e.reason)
+                setTimeout(() => {
+                    createWs()
+                }, 1000)
+            }
+        }
+    }
+
+    createWs()
+</script>
+</body>
+</html>
