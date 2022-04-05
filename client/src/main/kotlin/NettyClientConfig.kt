@@ -44,6 +44,8 @@ class NettyClientConfig {
                     }
                 })
             val fText = bootstrap.connect("localhost", 8080)
+            //Connect is how you connect a local machine to a remote machine.
+            //Bind is how you get the server to listen for remote connections on a port.
             fText.channel().closeFuture().sync()
         }catch(error: InterruptedException){
             error.printStackTrace()
