@@ -1,9 +1,11 @@
 import io.netty.bootstrap.Bootstrap
+import io.netty.channel.ChannelFuture
 import io.netty.channel.ChannelInitializer
 import io.netty.channel.EventLoopGroup
 import io.netty.channel.nio.NioEventLoopGroup
 import io.netty.channel.socket.SocketChannel
 import io.netty.channel.socket.nio.NioSocketChannel
+import java.util.*
 import kotlin.system.exitProcess
 
 class NettyClientConfig {
@@ -29,6 +31,8 @@ class NettyClientConfig {
 
     fun initializeClient(){
         println("initialize client...")
+        var msg: String?
+        val scanner = Scanner(System.`in`)
         group = NioEventLoopGroup()
         try{
             bootstrap = Bootstrap()
@@ -43,10 +47,24 @@ class NettyClientConfig {
                             .addLast("handler", NettyClientHandler())
                     }
                 })
-            val fText = bootstrap.connect("localhost", 8080)
             //Connect is how you connect a local machine to a remote machine.
             //Bind is how you get the server to listen for remote connections on a port.
-            fText.channel().closeFuture().sync()
+            //1
+//            val fText = bootstrap.connect("localhost", 8080).sync()
+//            fText.channel().closeFuture().sync()
+            val channel = bootstrap.connect("localhost", 8080).sync().channel()
+            var future: ChannelFuture? = null
+
+            while(true){
+                msg = scanner.nextLine()
+                future = channel.writeAndFlush(msg.plus("\n"))
+                if("quit" == msg){
+                    channel.closeFuture().sync()
+                    break;
+                }
+            }
+
+            future?.sync()
         }catch(error: InterruptedException){
             error.printStackTrace()
             exitProcess(1)
