@@ -1,5 +1,7 @@
 package linkedList;
 
+import java.util.LinkedList;
+
 public class Main {
     public static void main(String[] args){
         AnsLinkedList<String> list = new AnsLinkedList<>();
@@ -13,5 +15,12 @@ public class Main {
 
         list.removeElement(1);
         list.printList();
+
+        ListNode<String> ansj = list.searchNode("ANSJ");
+        if(ansj == null){
+            System.out.println("ansj is null");
+        }else{
+            System.out.println(ansj.getData());
+        }
     }
 }

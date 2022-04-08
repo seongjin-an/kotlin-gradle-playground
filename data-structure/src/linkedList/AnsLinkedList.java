@@ -72,6 +72,67 @@ public class AnsLinkedList<T> {
         return tempNode;
     }
 
+    public T getElement(int position){
+        int i;
+        ListNode<T> tempNode = head;
+
+        if(position >= count){
+            throw new IllegalArgumentException("검색 위치 오류 입니다. 현재 리스트의 개수는 " + count + "개 입니다.");
+        }
+
+        if(position == 0){
+            return head.getData();
+        }
+
+        for(i = 0; i < position; i++){
+            tempNode = tempNode.link;
+        }
+
+        return tempNode.getData();
+    }
+
+    public ListNode<T> getNode(int position){
+        int i;
+        ListNode<T> tempNode = head;
+
+        if(position >= count){
+            throw new IllegalArgumentException("검색 위치 오류 입니다. 현재 리스트의 개수는 " + count + "개 입니다.");
+        }
+
+        if(position == 0){
+            return head;
+        }
+        for(i = 0; i < position; i++){
+            tempNode = tempNode.link;
+        }
+        return tempNode;
+    }
+
+    public ListNode<T> searchNode(T data){
+        ListNode<T> currentNode = head;
+        while(currentNode != null){
+            if(currentNode.getData() == data){
+                return currentNode;
+            }else{
+                currentNode = currentNode.link;
+            }
+        }
+        return currentNode;
+    }
+
+    public void removeAll(){
+        this.head = null;
+        count = 0;
+    }
+
+    public int getSize(){
+        return count;
+    }
+
+    public boolean isEmpty(){
+        return head == null;
+    }
+
     public void printList(){
         ListNode<T> temp = this.head;
         System.out.print("L = (");
