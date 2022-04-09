@@ -53,13 +53,13 @@ public class Array<T> {
         }
         T obj = (T)elements[position];
         System.arraycopy(elements, position + 1, elements, position, count - position - 1);
-        elements[count] = null;
-        count--;
+        elements[--count] = null;
+//        count--;
         return obj;
     }
 
     public int getSize(){
-        return count;
+        return size;
     }
 
     public boolean isEmpty(){

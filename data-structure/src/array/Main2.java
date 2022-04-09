@@ -7,7 +7,7 @@ public class Main2 {
         System.out.println("ansj: " + ansj);
         arr.add("123");
         arr.printAll();
-
+        System.out.println("==============================");
         Array<Integer> arr2 = new Array<>();
         arr2.add(1);
         arr2.add(2);
