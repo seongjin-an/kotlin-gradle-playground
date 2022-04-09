@@ -1,19 +1,19 @@
 package array;
 
-public class AnsArray {
+public class AnsArray2 {
     int[] intArr;
     int count;
 
     public int ARRAY_SIZE;
     public static final int ERROR_NUM = -999999999;
 
-    public AnsArray(){
+    public AnsArray2(){
         count = 0;
         ARRAY_SIZE = 10;
         intArr = new int[ARRAY_SIZE];
     }
 
-    public AnsArray(int size){
+    public AnsArray2(int size){
         count = 0;
         ARRAY_SIZE = size;
         intArr = new int[size];
