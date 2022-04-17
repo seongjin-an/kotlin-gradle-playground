@@ -57,10 +57,14 @@ class GenerateGradeReport {
         val majorId = student.majorSubject.subjectId
         val gradeEvaluation: Array<GradeEvaluation> = arrayOf(BasicEvaluation(), MajorEvaluation(), PassFailEvaluation())
         val score: Score? = scoreList.find { score -> score.subject.subjectId == subjectId}
-        val grade = if (score?.subject?.subjectId == majorId) {
-            gradeEvaluation[Definition.SAB_TYPE].getGrade(score.point)
+        val grade = if(score?.subject?.gradeType == Definition.PF_TYPE){
+            gradeEvaluation[Definition.PF_TYPE].getGrade(score.point)
         } else {
-            gradeEvaluation[Definition.AB_TYPE].getGrade(score!!.point)
+            if (score?.subject?.subjectId == majorId) {
+                gradeEvaluation[Definition.SAB_TYPE].getGrade(score.point)
+            } else {
+                gradeEvaluation[Definition.AB_TYPE].getGrade(score!!.point)
+            }
         }
         buffer.append(score.point)
         buffer.append(":")
