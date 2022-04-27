@@ -1,20 +1,22 @@
-package sort
+package graph
 
-class BfsSearch(private val count: Int) {
+import java.util.Stack
+
+class DfsSearch(private val count: Int) {
     private var visited: BooleanArray = BooleanArray(count)
-    private var queue = mutableListOf<Int>()
+    private var stack: Stack<Int> = Stack<Int>()
     lateinit var matrix: Array<IntArray>
 
-    fun bfsTraversal(){
-        queue.add(0)
+    fun dfsTraversal(){
+        stack.push(0)
         visited[0] = true
 
-        while(queue.size != 0){
-            val node: Int = queue.removeAt(0)
+        while(stack.isNotEmpty()){
+            val node = stack.pop()
             print("$node ")
             for(j in 0 until count){
                 if(matrix[node][j] != 0 && !visited[j]){
-                    queue.add(j)
+                    stack.push(j)
                     visited[j] = true
                 }
             }

@@ -1,4 +1,7 @@
-package sort
+package graph
+
+import graph.BfsSearch
+import graph.DfsSearch
 
 fun main() {
 

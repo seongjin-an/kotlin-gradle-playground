@@ -1,4 +1,4 @@
-package sort
+package graph
 
 class UndirectedGraph(count: Int) {
     private var vertexArray: Array<IntArray> = Array(count){ IntArray(count) }
