@@ -1,5 +1,6 @@
 package graph
 
+//최단거리 찾기 Dijkstra의 최단 경로 알고리즘
 class Graph(val count: Int) {
     private var vertexMatrix = Array(count){ IntArray(count) }
     private var distance = Array(count) { 0 }
@@ -24,10 +25,13 @@ class Graph(val count: Int) {
             var min = UNLIMIT
             var minIndex = -1
             (0 until count).forEach { j ->
+                println("i: $i / j: $j")
                 if(!visited[j] && distance[j] != UNLIMIT){
                     if(distance[j] < min) {
+
                         min= distance[j]
                         minIndex = j
+                        println("min: $min / minIndex: $minIndex")
                     }
                 }
             }
@@ -60,6 +64,6 @@ fun main() {
     graph.addEdges(3, 5, 3)
     graph.addEdges(4, 5, 4)
 
-    graph.calcShortestPath(3)
-    graph.showDistance(3)
+    graph.calcShortestPath(0)
+    graph.showDistance(0)
 }
