@@ -20,7 +20,7 @@ class Graph(val count: Int) {
         (0 until count).forEach {
             if(visited[from] && vertexMatrix[from][it] != 0) distance[it] = vertexMatrix[from][it]
         }
-        //from은 처음 하나가 정해진 상황이므로 빼기 1을 한다.
+        // from 은 처음 하나가 정해진 상황이므로 빼기 1을 한다.
         (0 until count - 1).forEach { i ->
             var min = UNLIMIT
             var minIndex = -1
