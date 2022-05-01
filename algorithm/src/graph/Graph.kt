@@ -25,18 +25,19 @@ class Graph(val count: Int) {
             var min = UNLIMIT
             var minIndex = -1
             (0 until count).forEach { j ->
-                println("i: $i / j: $j")
+//                println("i: $i / j: $j / minIndex: $minIndex")
                 if(!visited[j] && distance[j] != UNLIMIT){
                     if(distance[j] < min) {
 
                         min= distance[j]
                         minIndex = j
-                        println("min: $min / minIndex: $minIndex")
+//                        println("min: $min / minIndex: $minIndex")
                     }
                 }
             }
             visited[minIndex] = true
             (0 until count).forEach { k ->
+//                println("i: $i / k: $k")
                 if(!visited[k] && vertexMatrix[minIndex][k] != 0){
                     if(distance[k] > distance[minIndex] + vertexMatrix[minIndex][k]){
                         distance[k] = distance[minIndex] + vertexMatrix[minIndex][k]
