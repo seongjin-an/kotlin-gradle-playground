@@ -48,7 +48,7 @@ class Robot {
                             maze.maz[newY][newX] == NOT_VISIT && markArray[newY][newX] == NOT_VISIT
                 ){
                     val newPosition = Move(newX, newY)
-                    newPosition.direction = direction + 1
+                    newPosition.direction = direction + 1// 이렇게 해야만 네 방향을 모두 찾아보고 이후 찾은 것이 없을 경우 while 에서 벗어날 수 있음...
                     stack.push(newPosition)
                     markArray[y][x] = VISIT
 
@@ -60,7 +60,7 @@ class Robot {
                         isFound = true
                         newPosition.x = newX
                         newPosition.y = newY
-                        newPosition.direction = 0
+//                        newPosition.direction = 0
                         stack.push(newPosition)
                         markArray[newY][newX] = VISIT
                     }
