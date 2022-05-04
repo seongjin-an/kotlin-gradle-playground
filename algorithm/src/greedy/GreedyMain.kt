@@ -8,6 +8,6 @@ fun main() {
         count = 0
         count += price / coins[i]
         price %= coins[i]
-        println("${coins[i]}짜리 동전 $count 필요함")
+        println("${coins[i]} 짜리 동전 $count 필요함")
     }
 }
