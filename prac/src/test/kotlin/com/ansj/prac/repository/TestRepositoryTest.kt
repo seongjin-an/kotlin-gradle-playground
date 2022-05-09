@@ -21,4 +21,10 @@ class TestRepositoryTest {
         val result = testRepository.save(test)
         println(result)
     }
+
+    @Test
+    fun selectTest(){
+        val result = testRepository.findAll()
+        result.forEach { println(it) }
+    }
 }

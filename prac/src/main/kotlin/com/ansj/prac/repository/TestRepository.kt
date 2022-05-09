@@ -8,9 +8,4 @@ import org.springframework.stereotype.Repository
 
 @Repository
 interface TestRepository: JpaRepository<TestEntity, Int> {
-//    @Query("""
-//        SELECT new com.ansj.prac.dto.TestDto(to_char(T.id), T.text)
-//        FROM TestEntity T
-//    """)
-//    fun testProjection(): List<TestDto>
 }
