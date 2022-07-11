@@ -1,4 +1,4 @@
-data class Person(var name: String, var age: Int, var email: String)
+data class Person(var name: String, var age: Int, var email: String) 
 data class Car(var name: String, var size: Int, var color: String)
 fun main(args: Array<String>) {
     var person = Person("ansj", 22, "ansj@eseict.com")
