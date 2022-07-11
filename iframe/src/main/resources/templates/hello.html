@@ -1,6 +1,55 @@
-<html lang="en">
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>hello111</title>
+</head>
 <body>
     <h2>hello world!!</h2>
-    <iframe th:src="@{/hello/ohayo}"  style="border: none"/>
+    <button id="parent_btn">자식에게 메시지 전송</button>
+
+
+
+    <script th:inline="javascript">
+        console.log('............................')
+        const btn = document.getElementById('parent_btn');
+        const child = document.getElementById("child");
+
+        btn.addEventListener('click', (event) => {
+            console.log('parent_btn clicked.....')
+            sendMsgToChild('hahahahhaha')
+        })
+
+        const sendMsgToChild = (msg) => {
+            // child.contentWindow.postMessage(msg, '*');// contentWindow 속성은  iframe 에 의해 생성된 Window 객체를 말한다.
+            // window.postMessage(
+            //     {
+            //         sender: 'parent',
+            //         message: msg
+            //     },
+            //     '*'
+            // )
+            // document.querySelector("#child").contentWindow.postMessage(
+            document.getElementById('child').contentWindow.postMessage(
+                {
+                    sender: 'parent',
+                    message: msg
+                },
+                '*'
+            )
+        }
+        //////////////////////////////////////////////////////////////////
+        // 자식으로부터 메시지 수신
+        const receiveMsgFromChild = (event)=> {
+            console.log('event:', event)
+            if(event.data && event.data.sender === 'parent'){
+                console.log('ignore!!')
+            }else if(event.data && event.data.sender === 'child'){
+                console.log('got message from child')
+            }
+        }
+
+        // 메시지 수신 받는 event listener 등록
+        window.addEventListener('message', receiveMsgFromChild)
+    </script>
+    <iframe id="child" th:src="@{/hello/ohayo}" style="border: none"/>
 </body>
 </html>

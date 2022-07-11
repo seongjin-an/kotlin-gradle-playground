@@ -1,5 +1,49 @@
-<html lang="en">
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>hello222</title>
+</head>
 <body>
-    <h2>ohayo!</h2>
+    <h2 id="ohayo">ohayo!</h2>
+    <button id="child_btn">부모에게 메시지 전송</button>
+    <script th:inline="javascript">
+        console.log('22222222222222222222222222222222')
+        // const receiveMsgFromParent = (event) => {
+        //     // alert('event...:', event)
+        //     // console.log('in child and evnt:', event)
+        //     if(event.data && event.data.sender === 'parent'){
+        //         console.log('got message from parent')
+        //         document.getElementById('ohayo').style.color = 'red'
+        //     }else{
+        //         console.log('error')
+        //     }
+        // }
+        window.addEventListener('message', (event) => {
+            if(event.data&& event.data.sender === 'parent'){
+                console.log('got message from parent')
+                alert('got message from  parent')
+            }
+        })
+        // window.addEventListener('message', (event) => {
+        //     alert('!!!')
+        //     if(event.data && event.data.sender === 'parent'){
+        //         console.log('got message from parent')
+        //         document.getElementById('ohayo').style.color = 'red'
+        //     }else{
+        //         console.log('error')
+        //     }
+        // });
+
+        ///////////////////////////////////////////////////////////////////
+        // const btn = document.getElementById('child_btn');
+        //
+        // btn.addEventListener('click', (event) => {
+        //     console.log('child_btn clicked....')
+        //     sendMsgToParent('hohohohohohoho')
+        // })
+        //
+        // const sendMsgToParent = (msg) => {
+        //     window.parent.postMessage(msg, '*');
+        // }
+    </script>
 </body>
 </html>
